@@ -14,8 +14,11 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
 
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 jar {
-    baseName = 'gs-rest-service'
+    baseName = 'clicktocall-spring'
     version =  '0.1.0'
 }
 
@@ -32,5 +35,5 @@ dependencies {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.11'
+    gradleVersion = '2.3'
 }
