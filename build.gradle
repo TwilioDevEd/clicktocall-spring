@@ -27,6 +27,7 @@ repositories {
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile("com.twilio.sdk:twilio-java-sdk:5.8.0")
     testCompile("junit:junit")
 }
 
