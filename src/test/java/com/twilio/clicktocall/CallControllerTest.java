@@ -1,12 +1,10 @@
 package com.twilio.clicktocall;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -72,26 +70,4 @@ public class CallControllerTest {
         verify(mockedTwilioLine, times(1)).call("123456", "http://host/connect");
     }
 
-    @Test
-    @Ignore
-    public void shouldReturnTheMessage() {
-        HttpServletRequest servletRequestFake = mock(HttpServletRequest.class);
-        CallController callController = new CallController(mockedTwilioLine);
-
-        ResponseEntity<String> response = callController.connect(servletRequestFake);
-
-        assertThat(response.getBody(), containsString("erro"));
-    }
-
-    @Test
-    public void shouldNotGenerateTwiMLWhenRequestIsNotValid() {
-        HttpServletRequest fakeServletRequest = mock(HttpServletRequest.class);
-        RequestValidator mockedRequestValidator = mock(RequestValidator.class);
-        when(mockedRequestValidator.validate(fakeServletRequest)).thenReturn(false);
-        CallController callController = new CallController(mockedTwilioLine, mockedRequestValidator);
-
-        ResponseEntity<String> result = callController.connect(fakeServletRequest);
-
-        assertThat(result.getBody(), containsString("Invalid twilio request"));
-    }
 }
