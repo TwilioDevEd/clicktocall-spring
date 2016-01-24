@@ -12,11 +12,17 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class CallController {
 
+    private RequestValidator requestValidator;
     private TwilioLine twilioLine;
 
     @Autowired
     public CallController(TwilioLine twilioLine) {
         this.twilioLine = twilioLine;
+    }
+
+    public CallController(TwilioLine twilioLine, RequestValidator requestValidator) {
+        this.twilioLine = twilioLine;
+        this.requestValidator = requestValidator;
     }
 
     @RequestMapping("index")
@@ -38,5 +44,15 @@ public class CallController {
 
     private String buildResponseUrl(HttpServletRequest request) {
         return request.getRequestURL().toString().replace(request.getRequestURI(), "") + "/connect";
+    }
+
+
+    @RequestMapping("connect")
+    public ResponseEntity<String> connect(HttpServletRequest request) {
+        if (requestValidator.validate(request)) {
+            return new ResponseEntity<>("test", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Invalid twilio request", HttpStatus.BAD_REQUEST);
+        }
     }
 }
