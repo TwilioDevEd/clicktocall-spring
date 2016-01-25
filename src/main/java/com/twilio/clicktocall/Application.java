@@ -1,6 +1,7 @@
 package com.twilio.clicktocall;
 
 import com.twilio.sdk.TwilioRestClient;
+import com.twilio.sdk.TwilioUtils;
 import com.twilio.sdk.resource.factory.CallFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -28,5 +29,10 @@ public class Application {
     @Bean
     public CallFactory getCallFactory(TwilioRestClient twilioRestClient){
         return twilioRestClient.getAccount().getCallFactory();
+    }
+
+    @Bean
+    public TwilioUtils getTwilioUtils(@Value("${TWILIO_AUTH_TOKEN}") String authToken) {
+        return new TwilioUtils(authToken);
     }
 }
