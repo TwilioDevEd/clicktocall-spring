@@ -20,17 +20,13 @@ public class TwilioLine {
         this.twilioNumber = twilioNumber;
     }
 
-    public void call(final String phoneNumber, final String responseUrl) {
+    public void call(final String phoneNumber, final String responseUrl) throws TwilioRestException {
         Map<String, String> parameters = new HashMap<String, String>(){{
             put("From", twilioNumber);
             put("To", phoneNumber);
             put("Url", responseUrl);
         }};
 
-        try {
-            twilioServiceCallFactory.create(parameters);
-        } catch (TwilioRestException e) {
-            e.printStackTrace();
-        }
+        twilioServiceCallFactory.create(parameters);
     }
 }
