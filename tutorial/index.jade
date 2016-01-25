@@ -1,36 +1,179 @@
-.chapter(data-title='Your New Viewsaurus Tutorial')
-  .step(data-title='Welcome!', data-file='tutorial/config.json')
-    h2 Welcome to Viewsaurus
-
-    p Thanks for writing a Viewsaurus tutorial! If you're new to Viewsaurus, feel free to click through this brief tutorial showing you how a Viewsaurus tutorial is structured.
-
-    p The tutorial's navigation controls are located above this text. Use <i class="fa fa-fw fa-play"></i> to move to the next step of the tutorial. Use <i class="fa fa-fw fa-play fa-rotate-180"></i> to move to the previous step of the tutorial (if there is one). Use <i class="fa fa-fw fa-list"></i> to see an overview of all the steps in the tutorial.
-
-    p Let's begin by walking through the files generated for you in the `tutorial` directory with the `saurus new` command - those files are actually what is being used to show you this tutorial right now!
-
-  .step(data-title='Tutorial Configuration', data-file='tutorial/config.json')
+.chapter(data-title='Click to Call Spring')
+  .step(data-title='How It Works!', data-file='src/main/java/com/twilio/clicktocall/Application.java')
     :markdown
-      ## Configuration
+      ## Hot It Works
 
-      The first file we'll look at is `config.json`. This contains high-level configuration information about your tutorial. This JSON file contains several properties you can declare about your tutorial:
+      Let's go over the steps necessary to implement click-to-call in our application:
 
-      * `title`: This is the title of your tutorial which will show on the first page
-      * `description`: This is a string of text that will appear above the "Start" button for your tutorial.
-      * `repo`: This is the GitHub repo that your code lives in. Right now we assume all projects are hosted there, but we'll likely make this agnostic in the future.
-      * `heroku`: This indicates whether or not your project supports instant deployment with the [Heroku Button](https://blog.heroku.com/archives/2014/8/7/heroku-button)
+      ![Click-to-call Diagram](//s3-us-west-2.amazonaws.com/deved/clicktocall.png)
 
-      Now, let's take a look at the first file that contains the actual content of the tutorial, `index.jade`.
+      1. A website visitor wants to connect to your organization.  She submits a web form with her
+      phone number to receive a call connecting her to your sales or support team.
 
-  .step(data-title='Step Two')
-    h2 Under Construction
+      1. Your web application receives the form submission.  An HTTP request is initiated from your
+      application to Twilio to initiate an outbound call.
 
-    p more tutorial to come.
+      1. Twilio receives the request and initiates a call to the user's phone number.
 
-  //- Example: include markdown file
-    .step(data-title='Step Three', data-file='', data-highlight='')
-      include:markdown three.md
+      1. User receives the call.
 
-  //- Example: include jade file (don't need file extension)
-    .step(data-title='Step Four', data-file='', data-highlight='')
-      include four
+      1. After the call connects, Twilio asks our application for [TwiML
+      instructions](//www.twilio.com/docs/api/twiml). Our TwiML instructs Twilio to connect the user
+      to our sales or support teams.
 
+      ## What We Will Learn
+
+      This How-To demonstrates initializing a call using the [Twilio REST
+      API](//www.twilio.com/docs/api/rest) and creating TwiML call logic using the
+      [Say](//www.twilio.com/docs/api/twiml/say) verb.
+
+      Sound like a plan? Let's get started!
+
+      ---
+
+      **See Also:**
+      * [Twilio REST API](//www.twilio.com/docs/api/rest)
+      * [TwiML Say Verb](//www.twilio.com/docs/api/twiml/say)
+
+  .step(data-title='Environment', data-file='.env.example')
+    :markdown
+      ## Environment
+
+      To create our click-to-call application, we'll first need to setup our environment.
+
+      Let's put our Twilio credentials in a place where our application can access them. For the
+      purposes of this tutorial, we'll place them in environment variables that our application can read.
+
+      You can find your Twilio credentials in your [Account Dashboard](//www.twilio.com/user/account).
+
+      For more instructions on how to run the application, refer to the [app's
+      readme file](//github.com/TwilioDevEd/clicktocall-servlets/blob/master/README.md).
+
+  .step(data-title='The Web Form', data-file="src/main/resources/templates/index.html", data-highlight="26-40")
+    :markdown
+      ## The Web Form
+
+      The first step in creating a real click-to-call solution is by building the form that your
+      user will see on the web. No need to overthink this, the real goal is to POST the User's name
+      and phone number to your controller.
+
+      So what does this form need to have? An input for the phone number and
+      a submit button. Since the page really doesn't need to change after submit we decided to
+      implement the POST action via Ajax using jQuery. Next, let's take a look at how we are
+      implementing this AJAX form submit.
+
+  .step(data-title='Submit the Form', data-file='src/main/resources/static/js/clicktocall.js', data-highlight="11-30")
+    :markdown
+      ## Submit the Form
+
+      To make the click to call feature more seamless we used
+      [Ajax](https://developer.mozilla.org/en-US/docs/AJAX) to send the form asynchronously. This
+      code shows one way you could implement this functionality using [jQuery](http://jquery.org).
+
+      Functionally this code does the following:
+
+      * Watches for the user "submitting" the form element
+      * Submits that form data to our controller
+      * Let's the user know if the submission was successful or not
+
+      This is a pretty common implementation of jQuery's $.ajax() method, but notice that we are
+      returning the response message when the call has connected.
+
+      Now that we have the front-end done, let's build the backend that will receive this data and
+      call the user.
+
+  .step(data-title='Initiate Client Object', data-file='src/main/java/com/twilio/clicktocall/Application.java',
+    data-highlight="22-27")
+    :markdown
+      ## Initiate Client Object
+
+       First we initiate a `client` object with our Account SID and Auth Token. This is essentially
+       our Java REST API handler, which we could use to send SMS or a myriad of other things. But for
+       now we just need it to get access to a CallFactory, the object that we're going to use to create phone calls.
+
+       In this example, we're defining the CallFactory as a Spring Bean, so we can use the framework Dependency
+       Injection capabilies later.
+
+  .step(data-title="Making a Phone Call", data-file='src/main/java/com/twilio/clicktocall/TwilioLine.java',
+    data-highlight="17-31")
+    :markdown
+      ## Making a Phone Call
+
+      Next we'll use the CallFactory object injected by the framework to [make an outgoing phone call][voice]
+      which requires we pass it a From number, To number and the [URL Parameter][url] that tells Twilio what
+      to do after it connects the call to our user. In this case Twilio needs to dial in the Agent once the
+      call has been placed. We'll discuss this more in the next step.
+
+      [voice]: //www.twilio.com/docs/api/rest/making-calls
+      [url]: //www.twilio.com/docs/api/rest/making-calls#url-parameter
+
+  .step(data-title='The connect endpoint', data-file='src/main/java/com/twilio/clicktocall/ConnectController.java',
+    data-highlight='24-44')
+    :markdown
+      ## The connect endpoint
+
+      Twilio makes a request to our application when the call is created using the REST API, this
+      means that we need to create an endpoint that is publicly available for requests on the internet.
+
+  .step(data-title='Validating Twilio Request', data-file='src/main/java/com/twilio/clicktocall/ConnectController.java',
+    data-highlight='26-26')
+    :markdown
+      ## Validating Twilio Request
+
+      As TwiML some times can contain sensible information as phone numbers, it is a vulnerability
+      that anyone on the internet can make a request to this end point requesting our TwiML. Because of
+      that reason we need to check if the request is valid before doing any operation on the Connect endpoint.
+
+  .step(data-title='Twilio Request Validator', data-file='src/main/java/com/twilio/clicktocall/RequestValidator.java',
+    data-highlight='17-40')
+    :markdown
+      ## Twilio Request Validator
+
+      Taking a look at the validate method, we can see that the Twilio provides a mechanism to validate that the request
+      your application is receiving, is actually coming from Twilio. We use an instance of [TwilioUtils][utils]
+      that was injected by spring and call the validate method using the the required parameters.
+
+      [utils]: //twilio.github.io/twilio-java/com/twilio/sdk/TwilioUtils.html
+
+  .step(data-title='Generating TwiML', data-file='src/main/java/com/twilio/clicktocall/ConnectController.java',
+    data-highlight='24-44')
+    :markdown
+      ## Generating TwiML
+
+      TwiML is a set of [simple verbs][verbs], written in XML, that Twilio reads as instructions.
+      In this case our instructions inform Twilio to simply SAY something to the user. If we wanted
+      to connect the user to a real support agent, we would have to add a
+      [Dial verb](//www.twilio.com/docs/api/twiml/dial) that has the support agent number specified on it,
+      so the customer can talk to him/her.
+
+      In order to make writing TwiML as easy as possible, many of the helper libraries have methods
+      that generate TwiML for you. In this case we use twilio-java to create a TwiML response that
+      will say something.
+
+      [verbs]: //www.twilio.com/docs/api/twiml#verbs
+
+  .step(data-title='Where to Next?')
+    :markdown
+      ## Where to next?
+
+      That's it! We've just implemented click to call that allow your customers to connect with a
+      support agent.
+
+      If you're a Java developer working with Twilio, you might enjoy these
+      other tutorials:
+
+      [**Automated Survey**](//www.twilio.com/docs/howto/walkthrough/automated-survey/java/spark)
+
+      Instantly collect structured data from your users with a survey
+      conducted over a voice call or SMS text messages. Learn how to create
+      your own survey in Java.
+
+      [**SMS and MMS Notifications**](//www.twilio.com/docs/howto/walkthrough/server-notifications/java/spark)
+
+      Send SMS alerts to a list of system administrators if something goes wrong on your server.
+
+      ### Did this help?
+
+      Thanks for checking out this tutorial! If you have any feedback to share
+      with us, we'd love to hear it. Tweet
+      [@twilio](http://twitter.com/twilio) to let us know what you think.
