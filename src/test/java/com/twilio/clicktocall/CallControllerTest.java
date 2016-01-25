@@ -70,4 +70,17 @@ public class CallControllerTest {
         verify(mockedTwilioLine, times(1)).call("123456", "http://host/connect");
     }
 
+    @Test
+    public void shouldReturnAnErrorMessageWhenItsNotPossibleToCallTwilio() {
+        String errorMessagge = "test exception";
+        doThrow(new RuntimeException(errorMessagge)).when(mockedTwilioLine).call(anyString(), anyString());
+        CallController controller = new CallController(mockedTwilioLine);
+        when(mockedRequest.getParameter("phone")).thenReturn("123456");
+
+        ResponseEntity<String> response = controller.call(mockedRequest);
+
+        assertThat(response.getStatusCode(), is(HttpStatus.INTERNAL_SERVER_ERROR));
+        assertThat(response.getBody(), containsString("Problem while processing request: "+ errorMessagge));
+    }
+
 }
