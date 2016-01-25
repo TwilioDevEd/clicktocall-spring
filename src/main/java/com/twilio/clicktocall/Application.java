@@ -20,14 +20,9 @@ public class Application {
     }
 
     @Bean
-    public TwilioRestClient getTwilioRestClient(@Value("${TWILIO_ACCOUNT_SID}") String accountSid,
-                                                @Value("${TWILIO_AUTH_TOKEN}") String authToken) {
+    public CallFactory getCallFactory(@Value("${TWILIO_ACCOUNT_SID}") String accountSid,
+                                      @Value("${TWILIO_AUTH_TOKEN}") String authToken){
         TwilioRestClient twilioRestClient = new TwilioRestClient(accountSid, authToken);
-        return twilioRestClient;
-    }
-
-    @Bean
-    public CallFactory getCallFactory(TwilioRestClient twilioRestClient){
         return twilioRestClient.getAccount().getCallFactory();
     }
 
