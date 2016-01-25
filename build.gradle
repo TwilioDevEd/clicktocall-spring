@@ -31,8 +31,8 @@ repositories {
 dependencies {
     compile("com.twilio.sdk:twilio-java-sdk:5.8.0")
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
-    testCompile("junit:junit")
-    testCompile("org.mockito:mockito-all:1.9.5")
+    testCompile("junit:junit:4.12")
+    testCompile("org.mockito:mockito-core:1.10.19")
 }
 
 task wrapper(type: Wrapper) {
