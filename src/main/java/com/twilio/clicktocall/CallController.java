@@ -30,16 +30,22 @@ public class CallController {
         if (phoneNumber == null || phoneNumber.isEmpty()) {
             return new ResponseEntity<>("The phone number field can't be empty", HttpStatus.BAD_REQUEST);
         } else {
-            try {
-                twilioLine.call(phoneNumber, buildResponseUrl(request));
-            } catch (Exception e) {
-                String errorMessage = "Problem while processing request: "+
-                        e.getMessage();
-                return new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-
-            return new ResponseEntity<>("Phone call incoming!", HttpStatus.ACCEPTED);
+            return tryToCallTwilioUsing(phoneNumber, buildResponseUrl(request));
         }
+    }
+
+    private ResponseEntity<String> tryToCallTwilioUsing(String phoneNumber, String responseUrl) {
+        ResponseEntity<String> response = new ResponseEntity<>("Phone call incoming!", HttpStatus.ACCEPTED);
+
+        try {
+            twilioLine.call(phoneNumber, responseUrl);
+        } catch (Exception e) {
+            String errorMessage = "Problem while processing request: "+
+                    e.getMessage();
+            response = new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return response;
     }
 
     private String buildResponseUrl(HttpServletRequest request) {
