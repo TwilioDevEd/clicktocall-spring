@@ -5,9 +5,9 @@ An example application implementing Click to Call using Twilio.
 
 ### Run the application
 
-1. Clone the repository and `cd` into it.
-1. The application uses Gradle to manage dependencies.
-1. Edit the sample configuration file `.env.example` and edit it to match your configuration.
+1. Clone the repository and `cd` into it
+1. The application uses Gradle to manage dependencies
+1. Edit the sample configuration file `.env.example` and edit it to match your configuration
 
    Once you have edited the `.env.example` file, if you are using a unix operating system,
    just use the `source` command to load the variables into your environment:
@@ -26,6 +26,7 @@ An example application implementing Click to Call using Twilio.
    `TWILIO_NUMBER` should be set to the phone number you purchased above.
 
 1. Configure Twilio to call your webhooks
+
    You will also need to configure Twilio to call your application when calls are received.
 
    You will need to provision at least one Twilio number with voice capabilities
@@ -45,15 +46,16 @@ An example application implementing Click to Call using Twilio.
    ```bash
    $ ./gradlew bootRun
    ```
-   This will run the application in an exploded form on port 8080.
+   This will run the application on port 8080.
+
 1. Expose the application to the wider Internet using [ngrok](https://ngrok.com/)
 
    ```bash
    $ ngrok 8080
    ```
-   Once you have started ngrok, update your Twilio's number voice URL
-   setting to use your ngrok hostname, so it will look something like
-   this:
+
+   Configure your Twilio's number voice URL to match your ngrok URL.
+   It should look something like this:
 
    ```
    http://<your-ngrok-subdomain>.ngrok.io/connect
