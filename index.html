@@ -9,14 +9,14 @@
 .wrapper {
   height:100%;
   width:100%;
-}</style><link rel="shortcut icon" href="//twilio.com/bundles/marketing/img/favicons/favicon.ico"><link rel="apple-touch-icon" href="//twilio.com/bundles/marketing/img/favicons/favicon_57.png"><link rel="apple-touch-icon" sizes="72x72" href="//twilio.com/bundles/marketing/img/favicons/favicon_72.png"><link rel="apple-touch-icon" sizes="114x114" href="//twilio.com/bundles/marketing/img/favicons/favicon_114.png"><link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"><link rel="stylesheet" href="viewsaurus.css"></head><body><div class="wrapper"><div id="viewsaurus" data-title="Learn You clicktocall-spring For Much Win"><div class="saurus-panes"><div class="saurus-prose"><div class="saurus-prose-header"><div class="title-outer"><span class="step-title">Learn You clicktocall-spring For Much Win</span></div></div><div class="saurus-nav-buttons"><div class="saurus-nav-button nav-overview"><div class="saurus-nav-button-inner"><i class="fa fa-fw fa-list"></i></div><div class="nav-divider"></div></div><div class="saurus-nav-button nav-previous"><div class="saurus-nav-button-inner"><a href=""> <i class="fa fa-fw fa-play fa-rotate-180"></i></a></div><div class="nav-divider"></div></div><div class="saurus-nav-button nav-next clickable"><div class="saurus-nav-button-inner"><a href="#1"> <i class="fa fa-fw fa-play"></i></a></div></div><div class="saurus-next-title"><span class="next-title-inner"></span></div></div><div class="saurus-progress-bar"></div><div class="saurus-start"><p>Click-to-call enables your company to convert web traffic into phone calls with the click of a button. Learn how to implement it in minutes.</p><a href="#0">Start Tutorial</a></div><div class="saurus-content"><div data-title="Click to Call Spring" class="chapter"><div data-title="How It Works!" data-file="src/main/java/com/twilio/clicktocall/Application.java" class="step"><h2 id="hot-it-works">Hot It Works</h2>
-<p>Let&#39;s go over the steps necessary to implement click-to-call in our application:</p>
+}</style><link rel="shortcut icon" href="//twilio.com/bundles/marketing/img/favicons/favicon.ico"><link rel="apple-touch-icon" href="//twilio.com/bundles/marketing/img/favicons/favicon_57.png"><link rel="apple-touch-icon" sizes="72x72" href="//twilio.com/bundles/marketing/img/favicons/favicon_72.png"><link rel="apple-touch-icon" sizes="114x114" href="//twilio.com/bundles/marketing/img/favicons/favicon_114.png"><link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"><link rel="stylesheet" href="viewsaurus.css"></head><body><div class="wrapper"><div id="viewsaurus" data-title="Learn You clicktocall-spring For Much Win"><div class="saurus-panes"><div class="saurus-prose"><div class="saurus-prose-header"><div class="title-outer"><span class="step-title">Learn You clicktocall-spring For Much Win</span></div></div><div class="saurus-nav-buttons"><div class="saurus-nav-button nav-overview"><div class="saurus-nav-button-inner"><i class="fa fa-fw fa-list"></i></div><div class="nav-divider"></div></div><div class="saurus-nav-button nav-previous"><div class="saurus-nav-button-inner"><a href=""> <i class="fa fa-fw fa-play fa-rotate-180"></i></a></div><div class="nav-divider"></div></div><div class="saurus-nav-button nav-next clickable"><div class="saurus-nav-button-inner"><a href="#1"> <i class="fa fa-fw fa-play"></i></a></div></div><div class="saurus-next-title"><span class="next-title-inner"></span></div></div><div class="saurus-progress-bar"></div><div class="saurus-start"><p>Click-to-call enables your company to convert web traffic into phone calls with the click of a button. Learn how to implement it in minutes.</p><a href="#0">Start Tutorial</a></div><div class="saurus-content"><div data-title="Click to Call Spring" class="chapter"><div data-title="How It Works!" data-file="src/main/java/com/twilio/clicktocall/Application.java" class="step"><h2 id="how-it-works">How It Works</h2>
+<p>Let&#39;s go over the necessary steps to implement click-to-call</p>
 <p><img src="//s3-us-west-2.amazonaws.com/deved/clicktocall.png" alt="Click-to-call Diagram"></p>
 <ol>
 <li><p>A website visitor wants to connect to your organization.  She submits a web form with her
 phone number to receive a call connecting her to your sales or support team.</p>
 </li>
-<li><p>Your web application receives the form submission.  An HTTP request is initiated from your
+<li><p>Your web application receives the submission form.  An HTTP request is initiated from your
 application to Twilio to initiate an outbound call.</p>
 </li>
 <li><p>Twilio receives the request and initiates a call to the user&#39;s phone number.</p>
@@ -29,10 +29,10 @@ to our sales or support teams.</p>
 </li>
 </ol>
 <h2 id="what-we-will-learn">What We Will Learn</h2>
-<p>This How-To demonstrates initializing a call using the <a href="//www.twilio.com/docs/api/rest">Twilio REST
-API</a> and creating TwiML call logic using the
+<p>This How-To demonstrates how to initialize a call using the <a href="//www.twilio.com/docs/api/rest">Twilio REST
+API</a> and how to create a TwiML call logic using the
 <a href="//www.twilio.com/docs/api/twiml/say">Say</a> verb.</p>
-<p>Sound like a plan? Let&#39;s get started!</p>
+<p>Sounds like a plan? Let&#39;s get started!</p>
 <hr>
 <p><strong>See Also:</strong></p>
 <ul>
@@ -42,69 +42,71 @@ API</a> and creating TwiML call logic using the
 <li><a href="//spring.io/guides/gs/serving-web-content/">Spring Boot MVC Getting Started</a></li>
 </ul>
 </div><div data-title="Environment" data-file=".env.example" class="step"><h2 id="environment">Environment</h2>
-<p>To create our click-to-call application, we&#39;ll first need to setup our environment.</p>
+<p>To create our click-to-call application we need to setup our environment first.</p>
 <p>Let&#39;s put our Twilio credentials in a place where our application can access them. For the
-purposes of this tutorial, we&#39;ll place them in environment variables that our application can read.</p>
+purposes of this tutorial we&#39;ll place them as environment variables that our application can read.</p>
 <p>You can find your Twilio credentials in your <a href="//www.twilio.com/user/account">Account Dashboard</a>.</p>
-<p>For more instructions on how to run the application, refer to the <a href="//github.com/TwilioDevEd/clicktocall-servlets/blob/master/README.md">app&#39;s
+<p>For more instructions on how to run the application refer to the <a href="//github.com/TwilioDevEd/clicktocall-servlets/blob/master/README.md">app&#39;s
 readme file</a>.</p>
 </div><div data-title="The Web Form" data-file="src/main/resources/templates/index.html" data-highlight="26-40" class="step"><h2 id="the-web-form">The Web Form</h2>
-<p>The first step in creating a real click-to-call solution is by building the form that your
-user will see on the web. No need to overthink this, the real goal is to POST the User&#39;s name
+<p>The first step on creating a real click-to-call solution is by building the form that your
+user needs to fill on the web. No need to overthink this, the real goal is to POST the User&#39;s name
 and phone number to your controller.</p>
-<p>So what does this form need to have? An input for the phone number and
-a submit button. Since the page really doesn&#39;t need to change after submit we decided to
-implement the POST action via Ajax using jQuery. Next, let&#39;s take a look at how we are
-implementing this AJAX form submit.</p>
+<p>So what information does this form need? An input for the phone number and
+a submit button. Since the page doesn&#39;t need to render new content after clicking
+on submit, we decided to implement the POST action via Ajax using jQuery.
+Let&#39;s take a look at it.</p>
 </div><div data-title="Submit the Form" data-file="src/main/resources/static/js/clicktocall.js" data-highlight="11-30" class="step"><h2 id="submit-the-form">Submit the Form</h2>
 <p>To make the click to call feature more seamless we used
 <a href="https://developer.mozilla.org/en-US/docs/AJAX">Ajax</a> to send the form asynchronously. This
 code shows one way you could implement this functionality using <a href="http://jquery.org">jQuery</a>.</p>
-<p>Functionally this code does the following:</p>
+<p>This code does the following:</p>
 <ul>
 <li>Watches for the user &quot;submitting&quot; the form element</li>
-<li>Submits that form data to our controller</li>
-<li>Let&#39;s the user know if the submission was successful or not</li>
+<li>Submits the form data to our controller</li>
+<li>Lets the user know if the submission was successful or not</li>
 </ul>
-<p>This is a pretty common implementation of jQuery&#39;s <code>$.ajax()</code> method, but notice that we are
+<p>This is a common implementation of jQuery&#39;s <code>$.ajax()</code> method. Notice that we are
 returning the response message when the call has connected.</p>
-<p>Now that we have the front-end done, let&#39;s build the backend that will receive this data and
+<p>Now that we have the front end done lets build the back end that will receive this data and
 call the user.</p>
 </div><div data-title="Initiate Client Object" data-file="src/main/java/com/twilio/clicktocall/Application.java" data-highlight="22-27" class="step"><h2 id="initiate-client-object">Initiate Client Object</h2>
 <p> First we initiate a <code>client</code> object with our Account SID and Auth Token. This is essentially
  our Java REST API handler, which we could use to send SMS or a myriad of other things. But for
- now we just need it to get access to a CallFactory, the object that we&#39;re going to use to create phone calls.</p>
-<p> In this example, we&#39;re defining the CallFactory as a Spring Bean, so we can use the framework Dependency
- Injection capabilies later.</p>
+ now we just need it to get access to a CallFactory which is the object that we&#39;re going to use
+ to create phone calls.</p>
+<p> In this example we&#39;re defining the CallFactory as a Spring Bean. This way we can use the framework
+ Dependency Injection capabilities later.</p>
 </div><div data-title="Making a Phone Call" data-file="src/main/java/com/twilio/clicktocall/TwilioLine.java" data-highlight="17-31" class="step"><h2 id="making-a-phone-call">Making a Phone Call</h2>
 <p>Next we&#39;ll use the CallFactory object injected by the framework to <a href="//www.twilio.com/docs/api/rest/making-calls">make an outgoing phone call</a>
-which requires we pass it a From number, To number and the <a href="//www.twilio.com/docs/api/rest/making-calls#url-parameter">URL Parameter</a> that tells Twilio what
+which requires us to pass a From number, a To number and the <a href="//www.twilio.com/docs/api/rest/making-calls#url-parameter">URL Parameter</a> that tells Twilio what
 to do after it connects the call to our user. In this case Twilio needs to dial in the Agent once the
 call has been placed. We&#39;ll discuss this more in the next step.</p>
 </div><div data-title="The connect endpoint" data-file="src/main/java/com/twilio/clicktocall/ConnectController.java" data-highlight="24-44" class="step"><h2 id="the-connect-endpoint">The connect endpoint</h2>
-<p>Twilio makes a request to our application when the call is created using the REST API, this
-means that we need to create an endpoint that is publicly available for requests on the internet.</p>
+<p>Twilio makes a request to our application when the call is created using the REST API. This
+means that we need to create an endpoint that is publicly available for internet requests.</p>
 </div><div data-title="Validating Twilio Request" data-file="src/main/java/com/twilio/clicktocall/ConnectController.java" data-highlight="26-26" class="step"><h2 id="validating-twilio-request">Validating Twilio Request</h2>
-<p>As TwiML some times can contain sensible information as phone numbers, it is a vulnerability
-that anyone on the internet can make a request to this end point requesting our TwiML. Because of
-that reason we need to check if the request is valid before doing any operation on the Connect endpoint.</p>
+<p>TwiML sometimes can contain sensible information such as phone numbers, so it&#39;s vulnerable
+because anyone on the internet can make a request to this end point, therefore accessing our TwiML.
+That is why we need to check if the request is made by Twilio servers before doing any operation
+on the Connect endpoint.</p>
 </div><div data-title="Twilio Request Validator" data-file="src/main/java/com/twilio/clicktocall/RequestValidator.java" data-highlight="17-40" class="step"><h2 id="twilio-request-validator">Twilio Request Validator</h2>
-<p>Taking a look at the validate method, we can see that the Twilio provides a mechanism to validate that the request
-your application is receiving, is actually coming from Twilio. We use an instance of <a href="//twilio.github.io/twilio-java/com/twilio/sdk/TwilioUtils.html">TwilioUtils</a>
-that was injected by spring and call the validate method using the the required parameters.</p>
+<p>The validate method provides a mechanism to confirm that the request your application is receiving,
+is actually coming from Twilio. We use an instance of <a href="//twilio.github.io/twilio-java/com/twilio/sdk/TwilioUtils.html">TwilioUtils</a> that was injected by Spring
+and call the validate method using the required parameters.</p>
 </div><div data-title="Generating TwiML" data-file="src/main/java/com/twilio/clicktocall/ConnectController.java" data-highlight="24-44" class="step"><h2 id="generating-twiml">Generating TwiML</h2>
-<p>TwiML is a set of <a href="//www.twilio.com/docs/api/twiml#verbs">simple verbs</a>, written in XML, that Twilio reads as instructions.
+<p>TwiML is a set of <a href="//www.twilio.com/docs/api/twiml#verbs">simple verbs</a> written in XML that Twilio reads as instructions.
 In this case our instructions inform Twilio to simply SAY something to the user. If we wanted
 to connect the user to a real support agent, we would have to add a
-<a href="//www.twilio.com/docs/api/twiml/dial">Dial verb</a> that has the support agent number specified on it,
+<a href="//www.twilio.com/docs/api/twiml/dial">Dial verb</a> that specifies the support agent number
 so the customer can talk to him/her.</p>
-<p>In order to make writing TwiML as easy as possible, many of the helper libraries have methods
-that generate TwiML for you. In this case we use twilio-java to create a TwiML response that
-will say something.</p>
+<p>In order to make writing TwiML easy, many of the helper libraries have methods that generate
+TwiML for you. In this case we use twilio-java to create a TwiML response that will instruct
+Twilio to say something.</p>
 </div><div data-title="Where to Next?" class="step"><h2 id="where-to-next-">Where to next?</h2>
 <p>That&#39;s it! We&#39;ve just implemented click to call that allow your customers to connect with a
 support agent.</p>
-<p>If you&#39;re a Java developer working with Twilio, you might enjoy these
+<p>If you&#39;re a Java developer working with Twilio you might enjoy these
 other tutorials:</p>
 <p><a href="//https://www.twilio.com/docs/tutorials/walkthrough/automated-survey/java/spring"><strong>Automated Survey</strong></a></p>
 <p>Instantly collect structured data from your users with a survey
