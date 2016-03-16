@@ -5,9 +5,11 @@ An example application implementing Click to Call using Twilio.
 
 ### Run the application
 
-1. Clone the repository and `cd` into it
-1. The application uses Gradle to manage dependencies
-1. Edit the sample configuration file `.env.example` and edit it to match your configuration
+1. Clone the repository and `cd` into it.
+
+1. The application uses Gradle to manage dependencies.
+
+1. Edit the sample configuration file `.env.example` and edit it to match your configuration.
 
    Once you have edited the `.env.example` file, if you are using a unix operating system,
    just use the `source` command to load the variables into your environment:
@@ -32,9 +34,9 @@ An example application implementing Click to Call using Twilio.
    You will need to provision at least one Twilio number with voice capabilities
    so the application's users can trigger phone calls. You can buy a number [right
    here](//www.twilio.com/user/account/phone-numbers/search). Once you have
-   a number you need to configure your number to work with your application. Open
+   a number you need to configure it so that it works with your application. Open
    [the number management page](//www.twilio.com/user/account/phone-numbers/incoming)
-   and open a number's configuration by clicking on it.
+   and open the number's configuration by clicking on it.
 
    Remember that the number where you change the voice webhooks must be the same one you set on
    the `TWILIO_NUMBER` environment variable.
@@ -46,6 +48,7 @@ An example application implementing Click to Call using Twilio.
    ```bash
    $ ./gradlew bootRun
    ```
+
    This will run the application on port 8080.
 
 1. Expose the application to the wider Internet using [ngrok](https://ngrok.com/)
@@ -63,12 +66,13 @@ An example application implementing Click to Call using Twilio.
 
 ### Dependencies
 
-This application uses this Twilio helper library:
+This application uses this Twilio helper library.
+
 * [twilio-java](//github.com/twilio/twilio-java)
 
 ### Run the tests
 
-1. Run at the top-level directory:
+1. Run at the top-level directory.
 
    ```bash
    $ ./gradlew test
