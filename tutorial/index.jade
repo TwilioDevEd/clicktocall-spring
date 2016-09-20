@@ -85,33 +85,30 @@
       call the user.
 
   .step(data-title='Initiate Client Object', data-file='src/main/java/com/twilio/clicktocall/Application.java',
-    data-highlight="22-27")
+    data-highlight="23-27")
     :markdown
       ## Initiate Client Object
 
-       First we initiate a `client` object with our Account SID and Auth Token. This is essentially
-       our Java REST API handler, which we could use to send SMS or a myriad of other things. But for
-       now we just need it to get access to a CallFactory which is the object that we're going to use
-       to create phone calls.
-
-       In this example we're defining the CallFactory as a Spring Bean. This way we can use the framework
+       First we initiate a `twilioRestClient` object with our Account SID and Auth Token. 
+       This is essentially our Java REST API handler, which we could use to send SMS or 
+       a myriad of other things.
+       In this example we're defining it as a Spring Bean. This way we can use the framework
        Dependency Injection capabilities later.
 
-  .step(data-title="Making a Phone Call", data-file='src/main/java/com/twilio/clicktocall/TwilioLine.java',
-    data-highlight="17-31")
+  .step(data-title="Making a Phone Call", data-file='src/main/java/com/twilio/clicktocall/twilio/TwilioLine.java')
     :markdown
       ## Making a Phone Call
 
-      Next we'll use the CallFactory object injected by the framework to [make an outgoing phone call][voice]
-      which requires us to pass a From number, a To number and the [URL Parameter][url] that tells Twilio what
-      to do after it connects the call to our user. In this case Twilio needs to dial in the Agent once the
-      call has been placed. We'll discuss this more in the next step.
+      Next we'll use the `CallCreator` object to [make an outgoing phone call][voice]
+      which requires us to pass 3 parameters: a To number, a From number and the [URL Parameter][url] 
+      that tells Twilio what to do after it connects the call to our user. In this case Twilio needs to 
+      dial in the Agent once the call has been placed. We'll discuss this more in the next step.
 
       [voice]: //www.twilio.com/docs/api/rest/making-calls
       [url]: //www.twilio.com/docs/api/rest/making-calls#url-parameter
 
   .step(data-title='The connect endpoint', data-file='src/main/java/com/twilio/clicktocall/ConnectController.java',
-    data-highlight='24-44')
+    data-highlight='27-34')
     :markdown
       ## The connect endpoint
 
@@ -119,7 +116,7 @@
       means that we need to create an endpoint that is publicly available for internet requests.
 
   .step(data-title='Validating Twilio Request', data-file='src/main/java/com/twilio/clicktocall/ConnectController.java',
-    data-highlight='26-26')
+    data-highlight='29')
     :markdown
       ## Validating Twilio Request
 
@@ -128,19 +125,17 @@
       That is why we need to check if the request is made by Twilio servers before doing any operation
       on the Connect endpoint.
 
-  .step(data-title='Twilio Request Validator', data-file='src/main/java/com/twilio/clicktocall/RequestValidator.java',
-    data-highlight='17-40')
+  .step(data-title='Twilio Request Validator', data-file='src/main/java/com/twilio/clicktocall/twilio/TwilioRequestValidator.java',
+    data-highlight='14-36')
     :markdown
       ## Twilio Request Validator
 
       The validate method provides a mechanism to confirm that the request your application is receiving,
-      is actually coming from Twilio. We use an instance of [TwilioUtils][utils] that was injected by Spring
-      and call the validate method using the required parameters.
+      is actually coming from Twilio. We use an instance of [RequestValidator][utils] and call the validate method using the required parameters.
 
-      [utils]: //twilio.github.io/twilio-java/com/twilio/sdk/TwilioUtils.html
+      [utils]: //github.com/twilio/twilio-java/blob/next-gen/src/main/java/com/twilio/security/RequestValidator.java
 
-  .step(data-title='Generating TwiML', data-file='src/main/java/com/twilio/clicktocall/ConnectController.java',
-    data-highlight='24-44')
+  .step(data-title='Generating TwiML', data-file='src/main/java/com/twilio/clicktocall/twilio/TwiMLUtil.java', data-highlight='9-14')
     :markdown
       ## Generating TwiML
 
