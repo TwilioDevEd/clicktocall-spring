@@ -1,6 +1,6 @@
 package com.twilio.clicktocall;
 
-import com.twilio.sdk.TwilioRestException;
+import com.twilio.clicktocall.twilio.TwilioLine;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
@@ -60,7 +60,7 @@ public class CallControllerTest {
     }
 
     @Test
-    public void shouldRequestTwilioToCallPhoneNumberProvided() throws TwilioRestException {
+    public void shouldRequestTwilioToCallPhoneNumberProvided() {
         CallController controller = new CallController(mockedTwilioLine);
         when(mockedRequest.getParameter("phone")).thenReturn("123456");
         when(mockedRequest.getRequestURL()).thenReturn(new StringBuffer("http://host/call"));
@@ -72,7 +72,7 @@ public class CallControllerTest {
     }
 
     @Test
-    public void shouldReturnAnErrorMessageWhenItsNotPossibleToCallTwilio() throws TwilioRestException {
+    public void shouldReturnAnErrorMessageWhenItsNotPossibleToCallTwilio() {
         String errorMessagge = "test exception";
         doThrow(new RuntimeException(errorMessagge)).when(mockedTwilioLine).call(anyString(), anyString());
         CallController controller = new CallController(mockedTwilioLine);

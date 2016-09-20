@@ -1,22 +1,18 @@
-package com.twilio.clicktocall;
+package com.twilio.clicktocall.twilio;
 
-import com.twilio.sdk.TwilioUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import com.twilio.security.RequestValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
-@Component
-public class RequestValidator {
+public class TwilioRequestValidator {
 
-    private final TwilioUtils twilioUtils;
+    private final RequestValidator requestValidator;
 
-    @Autowired
-    public RequestValidator(TwilioUtils twilioUtils) {
-        this.twilioUtils = twilioUtils;
+    public TwilioRequestValidator(RequestValidator requestValidator) {
+        this.requestValidator = requestValidator;
     }
 
     public boolean validate(HttpServletRequest request) {
@@ -25,7 +21,7 @@ public class RequestValidator {
 
         String signature = request.getHeader("X-Twilio-Signature");
 
-        return twilioUtils.validateRequest(signature, url, params);
+        return requestValidator.validate(url, params, signature);
     }
 
     private Map<String, String> extractParametersFrom(HttpServletRequest request) {
