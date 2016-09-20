@@ -1,5 +1,7 @@
 package com.twilio.clicktocall;
 
+import com.twilio.clicktocall.twilio.TwilioRequestValidator;
+import com.twilio.twiml.TwiMLException;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
@@ -16,16 +18,16 @@ import static org.mockito.Mockito.when;
 public class ConnectControllerTest {
 
     private HttpServletRequest fakeServletRequest;
-    private RequestValidator mockedRequestValidator;
+    private TwilioRequestValidator mockedRequestValidator;
 
     @Before
     public void setUp() {
         fakeServletRequest = mock(HttpServletRequest.class);
-        mockedRequestValidator = mock(RequestValidator.class);
+        mockedRequestValidator = mock(TwilioRequestValidator.class);
     }
 
     @Test
-    public void shouldReturnResponseMessageWhenRequestIsValid() {
+    public void shouldReturnResponseMessageWhenRequestIsValid() throws TwiMLException {
         ConnectController connectController = new ConnectController(mockedRequestValidator);
         when(mockedRequestValidator.validate(fakeServletRequest)).thenReturn(true);
 
@@ -38,7 +40,7 @@ public class ConnectControllerTest {
     }
 
     @Test
-    public void shouldNotGenerateTwiMLWhenRequestIsNotValid() {
+    public void shouldNotGenerateTwiMLWhenRequestIsNotValid() throws TwiMLException {
         when(mockedRequestValidator.validate(fakeServletRequest)).thenReturn(false);
         ConnectController connectController = new ConnectController(mockedRequestValidator);
 
