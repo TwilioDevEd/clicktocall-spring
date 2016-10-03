@@ -15,6 +15,6 @@ public class TwilioLine {
 
     public void call(final String phoneNumber, final String responseUrl)  {
         CallCreator callCreator = new CallCreator(new PhoneNumber(phoneNumber), new PhoneNumber(twilioNumber), responseUrl);
-        callCreator.execute(restClient);
+        callCreator.create(restClient);
     }
 }
