@@ -31,12 +31,12 @@ public class ConnectControllerTest {
         ConnectController connectController = new ConnectController(mockedRequestValidator);
         when(mockedRequestValidator.validate(fakeServletRequest)).thenReturn(true);
 
-        ResponseEntity<String> response = connectController.connect(fakeServletRequest);
+        ResponseEntity<String> response = connectController.connect("+123", fakeServletRequest);
 
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
         assertThat(response.getBody(), containsString(
-                "If this were a real click to call implementation, you would be connected " +
-                        "to an agent at this point."));
+                "Thanks for contacting our sales department. Our " +
+                        "next available representative will take your call."));
     }
 
     @Test
@@ -44,7 +44,7 @@ public class ConnectControllerTest {
         when(mockedRequestValidator.validate(fakeServletRequest)).thenReturn(false);
         ConnectController connectController = new ConnectController(mockedRequestValidator);
 
-        ResponseEntity<String> result = connectController.connect(fakeServletRequest);
+        ResponseEntity<String> result = connectController.connect("+123", fakeServletRequest);
 
         assertThat(result.getStatusCode(), is(HttpStatus.BAD_REQUEST));
         assertThat(result.getBody(), containsString("Invalid twilio request"));
