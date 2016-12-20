@@ -27,31 +27,58 @@ public class CallControllerTest {
     }
 
     @Test
-    public void shouldInformWhenTelephoneNumberIsNotProvidedWhenParameterIsNull() {
+    public void shouldInformWhenUserTelephoneNumberIsNotProvidedWhenParameterIsNull() {
         CallController controller = new CallController(mockedTwilioLine);
-        when(mockedRequest.getParameter("phone")).thenReturn(null);
+        when(mockedRequest.getParameter("userPhone")).thenReturn(null);
+        when(mockedRequest.getParameter("salesPhone")).thenReturn("654321");
 
         ResponseEntity<String> result = controller.call(mockedRequest);
 
         assertThat(result.getStatusCode(), is(HttpStatus.BAD_REQUEST));
-        assertThat(result.getBody(), containsString("The phone number field can't be empty"));
+        assertThat(result.getBody(), containsString("Both user and sales phones must be provided"));
     }
 
     @Test
-    public void shouldInformWhenTelephoneNumberIsNotProvidedWhenParameterIsEmptyString() {
+    public void shouldInformWhenUserTelephoneNumberIsNotProvidedWhenParameterIsEmptyString() {
         CallController controller = new CallController(mockedTwilioLine);
-        when(mockedRequest.getParameter("phone")).thenReturn("");
+        when(mockedRequest.getParameter("userPhone")).thenReturn("");
+        when(mockedRequest.getParameter("salesPhone")).thenReturn("654321");
 
         ResponseEntity<String> result = controller.call(mockedRequest);
 
         assertThat(result.getStatusCode(), is(HttpStatus.BAD_REQUEST));
-        assertThat(result.getBody(), containsString("The phone number field can't be empty"));
+        assertThat(result.getBody(), containsString("Both user and sales phones must be provided"));
+    }
+
+    @Test
+    public void shouldInformWhenSalesTelephoneNumberIsNotProvidedWhenParameterIsNull() {
+        CallController controller = new CallController(mockedTwilioLine);
+        when(mockedRequest.getParameter("userPhone")).thenReturn("1");
+        when(mockedRequest.getParameter("salesPhone")).thenReturn(null);
+
+        ResponseEntity<String> result = controller.call(mockedRequest);
+
+        assertThat(result.getStatusCode(), is(HttpStatus.BAD_REQUEST));
+        assertThat(result.getBody(), containsString("Both user and sales phones must be provided"));
+    }
+
+    @Test
+    public void shouldInformWhenSalesTelephoneNumberIsNotProvidedWhenParameterIsEmptyString() {
+        CallController controller = new CallController(mockedTwilioLine);
+        when(mockedRequest.getParameter("userPhone")).thenReturn("1");
+        when(mockedRequest.getParameter("salesPhone")).thenReturn("");
+
+        ResponseEntity<String> result = controller.call(mockedRequest);
+
+        assertThat(result.getStatusCode(), is(HttpStatus.BAD_REQUEST));
+        assertThat(result.getBody(), containsString("Both user and sales phones must be provided"));
     }
 
     @Test
     public void shouldInformeWhenThePhoneCallIsIncoming(){
         CallController controller = new CallController(mockedTwilioLine);
-        when(mockedRequest.getParameter("phone")).thenReturn("12345");
+        when(mockedRequest.getParameter("userPhone")).thenReturn("12345");
+        when(mockedRequest.getParameter("salesPhone")).thenReturn("654321");
 
         ResponseEntity<String> result = controller.call(mockedRequest);
 
@@ -62,13 +89,14 @@ public class CallControllerTest {
     @Test
     public void shouldRequestTwilioToCallPhoneNumberProvided() {
         CallController controller = new CallController(mockedTwilioLine);
-        when(mockedRequest.getParameter("phone")).thenReturn("123456");
+        when(mockedRequest.getParameter("userPhone")).thenReturn("123456");
+        when(mockedRequest.getParameter("salesPhone")).thenReturn("654321");
         when(mockedRequest.getRequestURL()).thenReturn(new StringBuffer("http://host/call"));
         when(mockedRequest.getRequestURI()).thenReturn("/call");
 
         controller.call(mockedRequest);
 
-        verify(mockedTwilioLine, times(1)).call("123456", "http://host/connect");
+        verify(mockedTwilioLine, times(1)).call("123456", "http://host/connect/654321");
     }
 
     @Test
@@ -76,7 +104,8 @@ public class CallControllerTest {
         String errorMessagge = "test exception";
         doThrow(new RuntimeException(errorMessagge)).when(mockedTwilioLine).call(anyString(), anyString());
         CallController controller = new CallController(mockedTwilioLine);
-        when(mockedRequest.getParameter("phone")).thenReturn("123456");
+        when(mockedRequest.getParameter("userPhone")).thenReturn("123456");
+        when(mockedRequest.getParameter("salesPhone")).thenReturn("654321");
 
         ResponseEntity<String> response = controller.call(mockedRequest);
 

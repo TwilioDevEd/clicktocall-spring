@@ -8,6 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URL;
+import java.net.URLEncoder;
 
 @Controller
 public class CallController {
@@ -26,20 +30,25 @@ public class CallController {
 
     @RequestMapping("call")
     public ResponseEntity<String> call(HttpServletRequest request) {
-        String phoneNumber = request.getParameter("phone");
+        String userPhone = request.getParameter("userPhone");
+        String salesPhone = request.getParameter("salesPhone");
 
-        if (phoneNumber == null || phoneNumber.isEmpty()) {
-            return new ResponseEntity<>("The phone number field can't be empty", HttpStatus.BAD_REQUEST);
+        if (isBlank(userPhone) || isBlank(salesPhone)) {
+            return new ResponseEntity<>("Both user and sales phones must be provided", HttpStatus.BAD_REQUEST);
         } else {
-            return tryToCallTwilioUsing(phoneNumber, buildResponseUrl(request));
+            return tryToCallTwilioUsing(userPhone, buildResponseUrl(salesPhone, request));
         }
     }
 
-    private ResponseEntity<String> tryToCallTwilioUsing(String phoneNumber, String responseUrl) {
+    private boolean isBlank(String userPhone) {
+        return userPhone == null || userPhone.isEmpty();
+    }
+
+    private ResponseEntity<String> tryToCallTwilioUsing(String userPhone, String responseUrl) {
         ResponseEntity<String> response = new ResponseEntity<>("Phone call incoming!", HttpStatus.ACCEPTED);
 
         try {
-            twilioLine.call(phoneNumber, responseUrl);
+            twilioLine.call(userPhone, responseUrl);
         } catch (Exception e) {
             String errorMessage = "Problem while processing request: "+
                     e.getMessage();
@@ -49,8 +58,13 @@ public class CallController {
         return response;
     }
 
-    private String buildResponseUrl(HttpServletRequest request) {
-        return request.getRequestURL().toString().replace(request.getRequestURI(), "") + "/connect";
+    private String buildResponseUrl(String salesPhone, HttpServletRequest request) {
+        String host = request.getRequestURL().toString().replace(request.getRequestURI(), "");
+        try {
+            return host + "/connect/" + URLEncoder.encode(salesPhone, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new CallException(e);
+        }
     }
 
 }
