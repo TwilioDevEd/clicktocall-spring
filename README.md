@@ -6,7 +6,9 @@ An example application implementing Click to Call using Twilio.
 ### Run the application
 
 1. Clone the repository and `cd` into it.
+
 1. The application uses Gradle to manage dependencies.
+
 1. Edit the sample configuration file `.env.example` and edit it to match your configuration.
 
    Once you have edited the `.env.example` file, if you are using a unix operating system,
@@ -26,14 +28,15 @@ An example application implementing Click to Call using Twilio.
    `TWILIO_NUMBER` should be set to the phone number you purchased above.
 
 1. Configure Twilio to call your webhooks
+
    You will also need to configure Twilio to call your application when calls are received.
 
    You will need to provision at least one Twilio number with voice capabilities
    so the application's users can trigger phone calls. You can buy a number [right
    here](//www.twilio.com/user/account/phone-numbers/search). Once you have
-   a number you need to configure your number to work with your application. Open
+   a number you need to configure it so that it works with your application. Open
    [the number management page](//www.twilio.com/user/account/phone-numbers/incoming)
-   and open a number's configuration by clicking on it.
+   and open the number's configuration by clicking on it.
 
    Remember that the number where you change the voice webhooks must be the same one you set on
    the `TWILIO_NUMBER` environment variable.
@@ -45,15 +48,17 @@ An example application implementing Click to Call using Twilio.
    ```bash
    $ ./gradlew bootRun
    ```
-   This will run the application in an exploded form on port 8080.
+
+   This will run the application on port 8080.
+
 1. Expose the application to the wider Internet using [ngrok](https://ngrok.com/)
 
    ```bash
    $ ngrok 8080
    ```
-   Once you have started ngrok, update your Twilio's number voice URL
-   setting to use your ngrok hostname, so it will look something like
-   this:
+
+   Configure your Twilio's number voice URL to match your ngrok URL.
+   It should look something like this:
 
    ```
    http://<your-ngrok-subdomain>.ngrok.io/connect
@@ -61,12 +66,13 @@ An example application implementing Click to Call using Twilio.
 
 ### Dependencies
 
-This application uses this Twilio helper library:
+This application uses this Twilio helper library.
+
 * [twilio-java](//github.com/twilio/twilio-java)
 
 ### Run the tests
 
-1. Run at the top-level directory:
+1. Run at the top-level directory.
 
    ```bash
    $ ./gradlew test
