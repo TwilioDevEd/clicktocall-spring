@@ -57,11 +57,17 @@ An example application implementing Click to Call using Twilio.
    $ ngrok 8080
    ```
 
-   Configure your Twilio's number voice URL to match your ngrok URL.
+   Configure your Twilio's number voice URL to match your ngrok URL. Also, be sure to
+   set the Webhook method to `GET` in your Twilio Console.
    It should look something like this:
 
    ```
    http://<your-ngrok-subdomain>.ngrok.io/connect
+   ```
+
+1. Next, open the following url in your browser:
+   ```
+   http://<your-ngrok-subdomain>.ngrok.io/index.html
    ```
 
 ### Dependencies
