@@ -29,6 +29,7 @@ public class CallController {
     }
 
     @RequestMapping("call")
+    //@RequestMapping("call", produces="application/xml")
     public ResponseEntity<String> call(HttpServletRequest request) {
         String userPhone = request.getParameter("userPhone");
         String salesPhone = request.getParameter("salesPhone");

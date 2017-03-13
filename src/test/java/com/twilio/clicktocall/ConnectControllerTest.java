@@ -5,6 +5,7 @@ import com.twilio.twiml.TwiMLException;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,6 +38,7 @@ public class ConnectControllerTest {
         assertThat(response.getBody(), containsString(
                 "Thanks for contacting our sales department. Our " +
                         "next available representative will take your call."));
+        assertThat(response.getHeaders().getContentType(), is(MediaType.APPLICATION_XML));
     }
 
     @Test
@@ -44,9 +46,9 @@ public class ConnectControllerTest {
         when(mockedRequestValidator.validate(fakeServletRequest)).thenReturn(false);
         ConnectController connectController = new ConnectController(mockedRequestValidator);
 
-        ResponseEntity<String> result = connectController.connect("+123", fakeServletRequest);
+        ResponseEntity<String> response = connectController.connect("+123", fakeServletRequest);
 
-        assertThat(result.getStatusCode(), is(HttpStatus.BAD_REQUEST));
-        assertThat(result.getBody(), containsString("Invalid twilio request"));
+        assertThat(response.getStatusCode(), is(HttpStatus.BAD_REQUEST));
+        assertThat(response.getBody(), containsString("Invalid twilio request"));
     }
 }
