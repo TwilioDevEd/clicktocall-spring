@@ -28,7 +28,7 @@ public class CallController {
         return "index";
     }
 
-    @RequestMapping("call")
+    @RequestMapping(value = "call", produces = "text/plain")
     public ResponseEntity<String> call(HttpServletRequest request) {
         String userPhone = request.getParameter("userPhone");
         String salesPhone = request.getParameter("salesPhone");
@@ -50,7 +50,7 @@ public class CallController {
         try {
             twilioLine.call(userPhone, responseUrl);
         } catch (Exception e) {
-            String errorMessage = "Problem while processing request: "+
+            String errorMessage = "Problem while processing request: " +
                     e.getMessage();
             response = new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
         }

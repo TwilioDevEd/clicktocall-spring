@@ -43,10 +43,11 @@ An example application implementing Click to Call using Twilio.
 
    ![Configure Voice](http://howtodocs.s3.amazonaws.com/twilio-number-config-all-med.gif)
 
-1. Run the application using Gradle.
+1. Run the application using Gradle. The `--debug` option is helpful to view full
+   request and response logs.
 
    ```bash
-   $ ./gradlew bootRun
+   $ ./gradlew bootRun --debug
    ```
 
    This will run the application on port 8080.
@@ -57,11 +58,17 @@ An example application implementing Click to Call using Twilio.
    $ ngrok 8080
    ```
 
-   Configure your Twilio's number voice URL to match your ngrok URL.
+   Configure your Twilio's number voice URL to match your ngrok URL. Also, be sure to
+   set the Webhook method to `GET` in your Twilio Console.
    It should look something like this:
 
    ```
    http://<your-ngrok-subdomain>.ngrok.io/connect
+   ```
+
+1. Next, open the following url in your browser:
+   ```
+   http://<your-ngrok-subdomain>.ngrok.io/index.html
    ```
 
 ### Dependencies
