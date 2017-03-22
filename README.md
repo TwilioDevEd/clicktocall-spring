@@ -43,10 +43,11 @@ An example application implementing Click to Call using Twilio.
 
    ![Configure Voice](http://howtodocs.s3.amazonaws.com/twilio-number-config-all-med.gif)
 
-1. Run the application using Gradle.
+1. Run the application using Gradle. The `--debug` option is helpful to view full
+   request and response logs.
 
    ```bash
-   $ ./gradlew bootRun
+   $ ./gradlew bootRun --debug
    ```
 
    This will run the application on port 8080.

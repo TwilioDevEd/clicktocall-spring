@@ -33,8 +33,7 @@ public class ConnectController {
         httpHeaders.setContentType(MediaType.APPLICATION_XML);
 
         if (requestValidator.validate(request)) {
-            return new ResponseEntity<>
-            (
+            return new ResponseEntity<>(
               TwiMLUtil.buildVoiceResponseAndDial(SAY_MESSAGE, salesPhone),
               httpHeaders,
               HttpStatus.OK
