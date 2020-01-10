@@ -3,6 +3,8 @@
 
 An example application implementing Click to Call using Twilio.
 
+[Follow the tutorial in our documentation.])(https://www.twilio.com/docs/tutorials/walkthrough/click-to-call/java/spring)
+
 ### Run the application
 
 1. Clone the repository and `cd` into it.
@@ -40,8 +42,6 @@ An example application implementing Click to Call using Twilio.
 
    Remember that the number where you change the voice webhooks must be the same one you set on
    the `TWILIO_NUMBER` environment variable.
-
-   ![Configure Voice](http://howtodocs.s3.amazonaws.com/twilio-number-config-all-med.gif)
 
 1. Run the application using Gradle. The `--debug` option is helpful to view full
    request and response logs.
