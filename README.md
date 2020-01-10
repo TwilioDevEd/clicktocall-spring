@@ -1,9 +1,12 @@
 # Click to Call Spring
 [![Build Status](https://travis-ci.org/TwilioDevEd/clicktocall-spring.svg?branch=master)](https://travis-ci.org/TwilioDevEd/clicktocall-spring)
 
+> We are currently in the process of updating this sample template. If you are encountering any issues with the sample, please open an issue at [github.com/twilio-labs/code-exchange/issues](https://github.com/twilio-labs/code-exchange/issues) and we'll try to help you.
+
+
 An example application implementing Click to Call using Twilio.
 
-[Follow the tutorial in our documentation.])(https://www.twilio.com/docs/tutorials/walkthrough/click-to-call/java/spring)
+[Follow the tutorial in our documentation.](https://www.twilio.com/docs/tutorials/walkthrough/click-to-call/java/spring)
 
 ### Run the application
 
