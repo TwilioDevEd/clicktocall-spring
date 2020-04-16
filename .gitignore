@@ -6,3 +6,8 @@
 build/
 classes/
 .env
+.settings
+.vscode
+bin
+.classpath
+.project

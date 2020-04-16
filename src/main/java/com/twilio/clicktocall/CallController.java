@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URL;
 import java.net.URLEncoder;
 
 @Controller
@@ -28,7 +26,7 @@ public class CallController {
         return "index";
     }
 
-    @RequestMapping(value = "call", produces = "text/plain")
+    @RequestMapping(value = "call", produces = "application/json")
     public ResponseEntity<String> call(HttpServletRequest request) {
         String userPhone = request.getParameter("userPhone");
         String salesPhone = request.getParameter("salesPhone");
@@ -45,7 +43,7 @@ public class CallController {
     }
 
     private ResponseEntity<String> tryToCallTwilioUsing(String userPhone, String responseUrl) {
-        ResponseEntity<String> response = new ResponseEntity<>("Phone call incoming!", HttpStatus.ACCEPTED);
+        ResponseEntity<String> response = new ResponseEntity<>("{\"message\": \"Phone call incoming!\"}", HttpStatus.ACCEPTED);
 
         try {
             twilioLine.call(userPhone, responseUrl);

@@ -19,8 +19,7 @@ $(function() {
             method:'POST',
             data: $form.serialize()
         }).done(function(data) {
-            content = JSON.parse(data);
-            alert(content.message);
+            alert(data.message);
         }).fail(function() {
             alert('There was a problem calling you - please try again later.');
         }).always(function() {

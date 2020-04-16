@@ -1,5 +1,10 @@
+<a href="https://www.twilio.com">
+  <img src="https://static0.twilio.com/marketing/bundles/marketing/img/logos/wordmark-red.svg" alt="Twilio" width="250" />
+</a>
+
 # Click to Call Spring
-[![Build Status](https://travis-ci.org/TwilioDevEd/clicktocall-spring.svg?branch=master)](https://travis-ci.org/TwilioDevEd/clicktocall-spring)
+
+![](https://github.com/TwilioDevEd/clicktocall-spring/workflows/Java-Gradle/badge.svg)
 
 > We are currently in the process of updating this sample template. If you are encountering any issues with the sample, please open an issue at [github.com/twilio-labs/code-exchange/issues](https://github.com/twilio-labs/code-exchange/issues) and we'll try to help you.
 
@@ -14,37 +19,25 @@ An example application implementing Click to Call using Twilio.
 
 1. The application uses Gradle to manage dependencies.
 
-1. Edit the sample configuration file `.env.example` and edit it to match your configuration.
+1. Copy the `.env.example` file to `.env`.
 
-   Once you have edited the `.env.example` file, if you are using a unix operating system,
+1. Edit the sample configuration file `.env` and edit it to match your configuration.
+
+   Once you have edited the `.env` file, if you are using a unix operating system,
    just use the `source` command to load the variables into your environment:
 
    ```bash
-   $ source .env.example
+   $ source .env
    ```
 
    If you are using a different operating system, make sure that all the
-   variables from the .env.example file are loaded into your environment.
+   variables from the .env file are loaded into your environment.
 
    You can find your `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN` under
    your
    [Twilio Account Settings](//www.twilio.com/user/account/settings).
    You can buy Twilio phone numbers at [Twilio numbers](//www.twilio.com/user/account/phone-numbers/search)
    `TWILIO_NUMBER` should be set to the phone number you purchased above.
-
-1. Configure Twilio to call your webhooks
-
-   You will also need to configure Twilio to call your application when calls are received.
-
-   You will need to provision at least one Twilio number with voice capabilities
-   so the application's users can trigger phone calls. You can buy a number [right
-   here](//www.twilio.com/user/account/phone-numbers/search). Once you have
-   a number you need to configure it so that it works with your application. Open
-   [the number management page](//www.twilio.com/user/account/phone-numbers/incoming)
-   and open the number's configuration by clicking on it.
-
-   Remember that the number where you change the voice webhooks must be the same one you set on
-   the `TWILIO_NUMBER` environment variable.
 
 1. Run the application using Gradle. The `--debug` option is helpful to view full
    request and response logs.
@@ -55,23 +48,17 @@ An example application implementing Click to Call using Twilio.
 
    This will run the application on port 8080.
 
-1. Expose the application to the wider Internet using [ngrok](https://ngrok.com/)
+1. Expose the application to the wider Internet using [ngrok](https://ngrok.com/).
+   This step is important because the application won't
+   work as expected if you run it through localhost.
 
    ```bash
    $ ngrok 8080
    ```
 
-   Configure your Twilio's number voice URL to match your ngrok URL. Also, be sure to
-   set the Webhook method to `GET` in your Twilio Console.
-   It should look something like this:
-
-   ```
-   http://<your-ngrok-subdomain>.ngrok.io/connect
-   ```
-
 1. Next, open the following url in your browser:
    ```
-   http://<your-ngrok-subdomain>.ngrok.io/index.html
+   http://<your-ngrok-subdomain>.ngrok.io/
    ```
 
 ### Dependencies
@@ -87,3 +74,10 @@ This application uses this Twilio helper library.
    ```bash
    $ ./gradlew test
    ```
+
+## Meta
+
+ * No warranty expressed or implied. Software is as is. Diggity.
+ * The CodeExchange repository can be found [here](https://github.com/twilio-labs/code-exchange/).
+ * [MIT License](http://www.opensource.org/licenses/mit-license.html)
+ * Lovingly crafted by Twilio Developer Education.
