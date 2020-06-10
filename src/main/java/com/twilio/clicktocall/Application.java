@@ -32,7 +32,7 @@ public class Application {
     }
 
     @Bean
-    public TwilioLine twilioLine(TwilioRestClient restClient, @Value("${TWILIO_NUMBER}") String twilioNumber) {
+    public TwilioLine twilioLine(TwilioRestClient restClient, @Value("${TWILIO_PHONE_NUMBER}") String twilioNumber) {
         return new TwilioLine(restClient, twilioNumber);
     }
 }
