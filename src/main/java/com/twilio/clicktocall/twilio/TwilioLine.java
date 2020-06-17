@@ -19,7 +19,10 @@ public class TwilioLine {
 
     public void call(final String phoneNumber, final String responseUrl)  {
         try {
-            CallCreator callCreator = new CallCreator(new PhoneNumber(phoneNumber), new PhoneNumber(twilioNumber), new URI(responseUrl));
+            CallCreator callCreator = new CallCreator(
+                new PhoneNumber(phoneNumber),
+                new PhoneNumber(twilioNumber),
+                new URI(responseUrl));
             callCreator.create(restClient);
         } catch (URISyntaxException e) {
             throw new CallException(e);
