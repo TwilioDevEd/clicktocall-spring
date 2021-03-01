@@ -12,7 +12,7 @@
 
 An example application implementing Click to Call using Twilio.
 
-[Follow the tutorial in our documentation.](https://www.twilio.com/docs/tutorials/walkthrough/click-to-call/java/spring)
+[Follow the tutorial in our documentation.](https://www.twilio.com/docs/voice/tutorials/click-to-call)
 
 Implementations in other languages:
 
