@@ -64,15 +64,13 @@ After the above requirements have been met:
     ```
     See [Twilio Account Settings](#twilio-account-settings) to locate the necessary environment variables.
 
-    If you are using a UNIX operating system, load the environment variables before the application starts.
+3. Install dependencies
 
     ```bash
-    source .env
+    make install
     ```
 
-    _If you are using a different operating system, make sure that all the variables from the `.env` file are loaded into your environment._
-
-3. Run the application
+4. Run the application
 
     ```bash
     make serve

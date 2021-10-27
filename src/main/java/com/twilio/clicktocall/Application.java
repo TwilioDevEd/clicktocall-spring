@@ -21,18 +21,18 @@ public class Application {
     }
 
     @Bean
-    public TwilioRestClient twilioRestClient(@Value("${TWILIO_ACCOUNT_SID}") String accountSid,
-                                      @Value("${TWILIO_AUTH_TOKEN}") String authToken){
+    public TwilioRestClient twilioRestClient(@Value("${environment.TWILIO_ACCOUNT_SID}") String accountSid,
+                                      @Value("${environment.TWILIO_AUTH_TOKEN}") String authToken){
         return new TwilioRestClient.Builder(accountSid, authToken).build();
     }
 
     @Bean
-    public TwilioRequestValidator twilioRequestValidator(@Value("${TWILIO_AUTH_TOKEN}") String authToken) {
+    public TwilioRequestValidator twilioRequestValidator(@Value("${environment.TWILIO_AUTH_TOKEN}") String authToken) {
         return new TwilioRequestValidator(new RequestValidator(authToken));
     }
 
     @Bean
-    public TwilioLine twilioLine(TwilioRestClient restClient, @Value("${TWILIO_PHONE_NUMBER}") String twilioNumber) {
+    public TwilioLine twilioLine(TwilioRestClient restClient, @Value("${environment.TWILIO_PHONE_NUMBER}") String twilioNumber) {
         return new TwilioLine(restClient, twilioNumber);
     }
 }
