@@ -5,7 +5,6 @@
 
 	<display-name>JSON and XML RESTful web service example</display-name>
 
-
   <filter>
       <filter-name>loggingFilter</filter-name>
       <filter-class>com.github.isrsal.logging.LoggingFilter</filter-class>
