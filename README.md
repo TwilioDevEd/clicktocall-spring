@@ -4,27 +4,7 @@
 
 # Click to Call Spring
 
-![](https://github.com/TwilioDevEd/clicktocall-spring/workflows/Java-Gradle/badge.svg)
-
-> We are currently in the process of updating this sample template. If you are encountering any issues with the sample, please open an issue at [github.com/twilio-labs/code-exchange/issues](https://github.com/twilio-labs/code-exchange/issues) and we'll try to help you.
-
-## About
-
-An example application implementing Click to Call using Twilio.
-
-[Follow the tutorial in our documentation.](https://www.twilio.com/docs/voice/tutorials/click-to-call)
-
-Implementations in other languages:
-
-| .NET | Python | Node | Ruby | PHP |
-| :--- | :--- | :----- | :-- | :--- |
-| [Done](https://github.com/TwilioDevEd/clicktocall-csharp)  | [Done](https://github.com/TwilioDevEd/clicktocall-flask)  | [Done](https://github.com/TwilioDevEd/clicktocall-node)  | [Done](https://github.com/TwilioDevEd/clicktocall-rails) | [Done](https://github.com/TwilioDevEd/clicktocall-php)  |
-
-<!--
-### How it works
-
-**TODO: Describe how it works**
--->
+> This repository is archived and no longer maintained. Check out the [Twilio Voice](https://www.twilio.com/docs/voice/) docs for links to other tutorials. 
 
 ## Set up
 
@@ -79,15 +59,6 @@ After the above requirements have been met:
 
 That's it!
 
-### Docker
-
-If you have [Docker](https://www.docker.com/) already installed on your machine, you can use our `docker-compose.yml` to setup your project.
-
-1. Make sure you have the project cloned.
-2. Setup the environmental variables in the `docker-compose.yml` file, see the [Twilio Account Settings](#twilio-account-settings).
-3. Run `docker-compose --env-file /dev/null up`.
-4. Follow the steps in [Configure Twilio](#configure-twilio) section on how to expose your port to Twilio using a tool like [ngrok](https://ngrok.com/) and configure the remaining parts of your application.
-
 ### Tests
 
 You can run the tests locally by typing:
@@ -111,27 +82,9 @@ Next, open the following url in your browser:
 http://<your-ngrok-subdomain>.ngrok.io/
 ```
 
-### Cloud deployment
-
-Additionally to trying out this application locally, you can deploy it to a variety of host services. Here is a small selection of them.
-
-Please be aware that some of these might charge you for the usage or might make the source code for this application visible to the public. When in doubt research the respective hosting service first.
-
-| Service                           |                                                                                                                                                                                                                           |
-| :-------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| [Heroku](https://www.heroku.com/) | [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/TwilioDevEd/clicktocall-spring/tree/master)                                                                                                                                       |
-
-**Some notes:** 
-- For Heroku, please [check this](https://devcenter.heroku.com/articles/deploying-gradle-apps-on-heroku) to properly configure the project for deployment.
-- You can also follow [this guide](https://vaadin.com/blog/how-to-deploy-your-java-app-to-the-cloud) to deploy the application to several other cloud services including Google Cloud, Oracle Cloud, etc.
-
 ## Resources
 
 - The CodeExchange repository can be found [here](https://github.com/twilio-labs/code-exchange/).
-
-## Contributing
-
-This template is open source and welcomes contributions. All contributions are subject to our [Code of Conduct](https://github.com/twilio-labs/.github/blob/master/CODE_OF_CONDUCT.md).
 
 ## License
 
